@@ -12,10 +12,7 @@ const upload = multer({
     }
 })
 
-
-
 const router = express.Router();
-    
 
 router.post("/", authenticateSeller, upload.array('images', 7), createProductValidator, createProduct)
 

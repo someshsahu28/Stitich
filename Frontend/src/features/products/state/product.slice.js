@@ -1,27 +1,22 @@
-import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
 
-const productApiInstance = axios.create({
-    baseURL: "/api/products",
-    withCredentials: true,
+
+const productSlice = createSlice({
+    name: "product",
+    initialState: {
+        sellerProducts: [],
+        products: []
+    },
+    reducers: {
+        setSellerProducts: (state, action) => {
+            state.sellerProducts = action.payload
+        },
+        setProducts: (state, action) => {
+            state.products = action.payload
+        }
+    }
 })
 
-export async function createProduct(formData) {
-    const response = await productApiInstance.post("/", formData)
 
-    return response.data
-}
-
-export async function getSellerProduct() {
-    const response = await productApiInstance.get("/seller")
-    return response.data
-}
-
-export async function getAllProducts() {
-    const response = await productApiInstance.get("/")
-    return response.data
-}
-
-export async function getProductById(productId) {
-    const response = await productApiInstance.get(`/detail/${productId}`)
-    return response.data
-}
+export const { setSellerProducts, setProducts } = productSlice.actions
+export default productSlice.reducer
